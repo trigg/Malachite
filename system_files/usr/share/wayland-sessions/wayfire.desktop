@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Wayfire
+Comment=Wayfire 3D Wayland Compositor
+Exec=wayfire
+Type=Application
+DesktopName=Wayfire;wlroots
+Icon=/usr/share/icons/hicolor/scalable/apps/wayfire.svg

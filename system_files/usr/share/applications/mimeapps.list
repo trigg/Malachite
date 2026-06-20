@@ -1,0 +1,15 @@
+[Default Applications]
+inode/directory=nemo.desktop;
+image/jpeg=org.gnome.Loupe.desktop;
+image/png=org.gnome.Loupe.desktop;
+image/svg+xml=org.gnome.Loupe.desktop;
+video/mp4=com.github.rafostar.Clapper.desktop;
+video/mkv=com.github.rafostar.Clapper.desktop;
+audio/mpeg=com.github.rafostar.Clapper.desktop;
+audio/flac=com.github.rafostar.Clapper.desktop;
+text/plain=org.gnome.TextEditor.desktop;
+text/html=chromium-browser.desktop;
+x-scheme-handler/http=chromium-browser.desktop;
+x-scheme-handler/https=chromium-browser.desktop;
+x-scheme-handler/about=chromium-browser.desktop;
+x-scheme-handler/unknown=chromium-browser.desktop;

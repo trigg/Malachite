@@ -1,0 +1,30 @@
+max-visible=5
+output=all
+
+layer=top
+anchor=top-right
+margin=20
+padding=15
+width=350
+border-size=1
+border-radius=8
+progress-color=source #3f51b5
+
+font=Atkinson Hyperlegible Mono 10
+
+background-color=#1D1D28D8
+text-color=#FFFFFF
+border-color=#2A2A37
+
+[urgency=low]
+border-color=#2A2A37
+default-timeout=5000
+
+[urgency=normal]
+border-color=#3f51b5
+default-timeout=10000
+
+[urgency=high]
+border-color=#e91e63
+text-color=#FFCDD2
+default-timeout=0

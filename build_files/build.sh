@@ -2,26 +2,65 @@
 
 set -ouex pipefail
 
-# Copy the contents of system_files/ of the git repo to /
 cp -avf "/ctx/system_files"/. /
 
-### Install packages
+dnf5 install -y \
+  meson ninja-build gcc-c++ git nodejs npm cmake \
+  python3-pip python3-setuptools \
+  libdrm-devel mesa-libgbm-devel mesa-libEGL-devel mesa-libGLES-devel \
+  libglvnd-devel pixman-devel libdecor-devel wayland-devel wayland-protocols-devel \
+  libxkbcommon-devel libinput-devel libevdev-devel libseat-devel glm-devel libxml2-devel \
+  gtk3-devel gtk4-devel gtkmm4.0-devel cairo-devel pango-devel libdbusmenu-gtk3-devel \
+  NetworkManager-libnm-devel libjpeg-turbo-devel libpng-devel pipewire-devel alsa-lib-devel \
+  pulseaudio-libs-devel systemd-devel wlroots-devel enchant2-devel \
+  pam-devel gobject-introspection-devel vala yyjson-devel openssl-devel \
+  gtk4-layer-shell-devel librsvg2-devel
 
-# Packages can be installed from any enabled yum repo on the image.
-# RPMfusion repos are available by default in ublue main images
-# List of rpmfusion packages can be found here:
-# https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/43/x86_64/repoview/index.html&protocol=https&redirect=1
+mkdir -p /tmp/wayfire-build
+cd /tmp/wayfire-build
 
-# this installs a package from fedora repos
-dnf5 install -y tmux
+git clone --recurse-submodules https://github.com/WayfireWM/wayfire.git
+git clone --recurse-submodules https://github.com/WayfireWM/wf-shell.git
+git clone --recurse-submodules https://github.com/soreau/wf-copy-capture.git
+git clone --recurse-submodules https://github.com/soreau/pixdecor.git
+git clone https://github.com/trigg/touchswitch.git
+git clone https://github.com/trigg/orientprompt.git
+git clone https://github.com/trigg/materia-trigg-custom.git
 
-# Use a COPR Example:
-#
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
-# Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
+cd "wayfire"
+meson setup build \
+  --prefix=/usr \
+  --buildtype=release \
+  -Duse_system_wlroots=enabled \
+  -Duse_system_wfconfig=disabled \
+  -Db_lto=true \
+  -Db_pie=true \
+  -Dtests=disabled \
+  -Dwf-config:tests=disabled 
+ninja -C build
+ninja -C build install 
+cd -
 
-#### Example for enabling a System Unit File
+dirs=("wf-shell" "wf-copy-capture" "pixdecor" "touchswitch" "materia-trigg-custom" "orientprompt")
 
-systemctl enable podman.socket
+for dir in "${dirs[@]}"; do
+    cd "$dir"
+    if [ "$dir" = "materia-trigg-custom" ]; then
+      HOME=/tmp npm install sass
+    fi
+    meson setup build --prefix=/usr --buildtype=release -Db_lto=true -Db_pie=true
+    ninja -C build
+    ninja -C build install 
+    cd -
+done
+
+dnf5 remove -y \
+  meson ninja-build gcc-c++ git nodejs npm cmake \
+  python3-pip python3-setuptools \
+  vala \
+  *-devel
+
+systemctl enable sddm
+
+dnf5 clean all
+rm -rf /tmp/wayfire-build
