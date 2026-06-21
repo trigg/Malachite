@@ -20,12 +20,13 @@ mkdir -p /tmp/wayfire-build
 cd /tmp/wayfire-build
 
 git clone --recurse-submodules https://github.com/WayfireWM/wayfire.git
-git clone --recurse-submodules https://github.com/WayfireWM/wf-shell.git
+git clone --recurse-submodules https://github.com/WayfireWM/wf-shell.git --branch=network-testing
 git clone --recurse-submodules https://github.com/soreau/wf-copy-capture.git
 git clone --recurse-submodules https://github.com/soreau/pixdecor.git
 git clone https://github.com/trigg/touchswitch.git
 git clone https://github.com/trigg/orientprompt.git
 git clone https://github.com/trigg/materia-trigg-custom.git
+git clone https://github.com/trigg/wf-session-systemd.git
 
 cd "wayfire"
 meson setup build \
@@ -41,7 +42,7 @@ ninja -C build
 ninja -C build install 
 cd -
 
-dirs=("wf-shell" "wf-copy-capture" "pixdecor" "touchswitch" "materia-trigg-custom" "orientprompt")
+dirs=("wf-shell" "wf-copy-capture" "pixdecor" "touchswitch" "materia-trigg-custom" "orientprompt" "wf-session-systemd")
 
 for dir in "${dirs[@]}"; do
     cd "$dir"
