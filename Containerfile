@@ -17,7 +17,7 @@ RUN --mount=type=cache,dst=/var/cache \
       loupe clapper gnome-text-editor \
       galculator xarchiver xfce4-taskmanager pavucontrol wdisplays \
       chromium evince file-roller grim slurp NetworkManager-tui \
-      enchant2 hunspell hunspell-en \
+      enchant2 hunspell hunspell-en mate-user-admin \
       wlroots gtk4-layer-shell librsvg2 google-noto-emoji-color-fonts\
       google-noto-sans-cjk-vf-fonts mesa-dri-drivers  xorg-x11-server-Xorg \
       xorg-x11-xinit yyjson dbus-tools blueman blueman-nemo qt6-qtvirtualkeyboard  \
