@@ -11,7 +11,7 @@ RUN --mount=type=cache,dst=/var/cache \
     dnf5 install -y \
       sddm papirus-icon-theme swayidle mate-polkit mako \
       atkinson-hyperlegible-next-fonts atkinson-hyperlegible-mono-fonts \
-      qt5-qtstyleplugins qt6ct \
+      qt5-qtstyleplugins qt6ct flatpak-libs \
       nemo nemo-fileroller nemo-preview nemo-image-converter \
       gvfs-fuse gvfs-smb gvfs-gphoto2 xfce4-terminal \
       loupe clapper gnome-text-editor \

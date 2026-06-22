@@ -14,7 +14,7 @@ dnf5 install -y \
   NetworkManager-libnm-devel libjpeg-turbo-devel libpng-devel pipewire-devel alsa-lib-devel \
   pulseaudio-libs-devel systemd-devel wlroots-devel enchant2-devel \
   pam-devel gobject-introspection-devel vala yyjson-devel openssl-devel \
-  gtk4-layer-shell-devel librsvg2-devel
+  gtk4-layer-shell-devel librsvg2-devel libnotify-devel flatpak-devel \
 
 mkdir -p /tmp/wayfire-build
 cd /tmp/wayfire-build
