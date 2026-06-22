@@ -22,7 +22,7 @@ RUN --mount=type=cache,dst=/var/cache \
       google-noto-sans-cjk-vf-fonts mesa-dri-drivers  xorg-x11-server-Xorg \
       xorg-x11-xinit yyjson dbus-tools blueman blueman-nemo qt6-qtvirtualkeyboard  \
       sddm-wayland-generic sddm-themes xdg-desktop-portal \
-      xdg-desktop-portal-wlr xdg-desktop-portal-gtk \
+      xdg-desktop-portal-wlr xdg-desktop-portal-gtk wayland-logout \
       && dnf5 clean all
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
