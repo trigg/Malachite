@@ -20,7 +20,7 @@ RUN --mount=type=cache,dst=/var/cache \
       enchant2 hunspell hunspell-en \
       wlroots gtk4-layer-shell librsvg2 google-noto-emoji-color-fonts\
       google-noto-sans-cjk-vf-fonts mesa-dri-drivers  xorg-x11-server-Xorg \
-      xorg-x11-xinit yyjson dbus-tools && dnf5 clean all
+      xorg-x11-xinit yyjson dbus-tools blueman blueman-nemo  && dnf5 clean all
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
