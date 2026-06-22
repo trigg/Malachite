@@ -1,0 +1,5 @@
+lock 'wf-locker --now'
+timeout 60 'brightnessctl --save && brightnessctl set 1' resume 'brightnessctl --restore'
+timeout 90 'wf-locker'
+timeout 360 'systemctl suspend'
+before-sleep 'wf-locker --now'
