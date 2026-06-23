@@ -63,5 +63,10 @@ dnf5 remove -y \
 
 systemctl enable sddm
 
+# Force user admin panel to be shown in wayfire menu
+if [ -f /usr/share/applications/mate-user-admin.desktop ]; then
+    sed -i 's/^OnlyShowIn=\(.*\)/OnlyShowIn=\1Wayfire;wayfire;/' /usr/share/applications/mate-user-admin.desktop
+fi
+
 dnf5 clean all
 rm -rf /tmp/wayfire-build
