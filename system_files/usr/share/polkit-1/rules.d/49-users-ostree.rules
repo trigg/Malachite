@@ -1,8 +1,0 @@
-polkit.addRule(function(action, subject) {
-    if ((action.id == "org.projectatomic.rpmostree1.upgrade" ||
-         action.id == "org.projectatomic.rpmostree1.repo-refresh") &&
-        subject.active == true &&
-        subject.isInGroup("wheel")) {
-        return polkit.Result.YES;
-    }
-});
