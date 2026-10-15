@@ -2,8 +2,6 @@
 
 set -ouex pipefail
 
-cp -avf "/ctx/system_files"/. /
-
 dnf5 install -y \
   meson ninja-build gcc-c++ git nodejs npm cmake \
   python3-pip python3-setuptools \
