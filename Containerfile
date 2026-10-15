@@ -1,38 +1,33 @@
 ARG BASE_IMAGE
 
-FROM scratch AS ctx
-COPY build_files /
-COPY system_files /system_files/
+FROM fedora:44 as builder
+
+# Bind mount build scripts, download dependencies, compile, and install to /usr
+RUN --mount=type=bind,source=build_files/build.sh,target=/tmp/build.sh \
+    --mount=type=cache,dst=/var/cache \
+    --mount=type=cache,dst=/var/log \
+    --mount=type=tmpfs,dst=/tmp \
+    /tmp/build.sh
+
 
 # Base Image
 FROM ${BASE_IMAGE}
 
-RUN --mount=type=cache,dst=/var/cache \
-    --mount=type=cache,dst=/var/log \
-    --mount=type=tmpfs,dst=/tmp \
-    dnf5 install -y \
-      sddm papirus-icon-theme swayidle mate-polkit mako \
-      atkinson-hyperlegible-next-fonts atkinson-hyperlegible-mono-fonts \
-      qt5-qtstyleplugins qt6ct flatpak-libs \
-      nemo nemo-fileroller nemo-preview nemo-image-converter \
-      gvfs-fuse gvfs-smb gvfs-gphoto2 xfce4-terminal \
-      loupe clapper gnome-text-editor \
-      galculator xarchiver xfce4-taskmanager pavucontrol wdisplays \
-      chromium evince file-roller grim slurp NetworkManager-tui \
-      enchant2 hunspell hunspell-en mate-user-admin \
-      wlroots gtk4-layer-shell librsvg2 google-noto-emoji-color-fonts\
-      google-noto-sans-cjk-vf-fonts mesa-dri-drivers  xorg-x11-server-Xorg \
-      xorg-x11-xinit yyjson dbus-tools blueman blueman-nemo qt6-qtvirtualkeyboard  \
-      sddm-wayland-generic sddm-themes xdg-desktop-portal \
-      xdg-desktop-portal-wlr xdg-desktop-portal-gtk wayland-logout \
-      && dnf5 clean all
+COPY system_files/ /
 
-RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+COPY --from=builder /usr/bin/wayfire* /usr/bin/
+COPY --from=builder /usr/bin/wf-* /usr/bin/
+COPY --from=builder /usr/lib64/wayfire/ /usr/lib64/wayfire/
+COPY --from=builder /usr/share/wayfire/ /usr/share/wayfire/
+COPY --from=builder /usr/share/wayland-sessions/ /usr/share/wayland-sessions/
+COPY --from=builder /usr/share/wf-shell/ /usr/share/wf-shell/
+COPY --from=builder /usr/share/wf-session/ /usr/share/wf-session/
+COPY --from=builder /usr/share/themes/ /usr/share/themes/
+
+RUN --mount=type=bind,source=build_files/os.sh,target=/tmp/os.sh \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
-    /ctx/build.sh
+    /tmp/os.sh
 
-### LINTING
-## Verify final image and contents are correct.
 RUN bootc container lint

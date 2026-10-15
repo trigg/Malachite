@@ -37,7 +37,7 @@ jobs:
           - variant: malachite
             base_image: ghcr.io/ublue-os/base-main:latest
           - variant: malachite-bazzite
-            base_image: ghcr.io/ublue-os/bazzite:stable
+            base_image: ghcr.io/ublue-os/bazzite-base:stable
 
     steps:
       # These stage versions are pinned by https://github.com/renovatebot/renovate
