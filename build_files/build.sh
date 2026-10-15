@@ -14,7 +14,8 @@ dnf5 install -y \
   NetworkManager-libnm-devel libjpeg-turbo-devel libpng-devel pipewire-devel alsa-lib-devel \
   pulseaudio-libs-devel systemd-devel wlroots-devel enchant2-devel \
   pam-devel gobject-introspection-devel vala yyjson-devel openssl-devel \
-  gtk4-layer-shell-devel librsvg2-devel libnotify-devel flatpak-devel \
+  gtk4-layer-shell-devel librsvg2-devel libnotify-devel flatpak-devel
+
 
 mkdir -p /tmp/wayfire-build
 cd /tmp/wayfire-build
@@ -37,9 +38,10 @@ meson setup build \
   -Db_lto=true \
   -Db_pie=true \
   -Dtests=disabled \
-  -Dwf-config:tests=disabled 
+  -Dwf-config:tests=disabled
+
 ninja -C build
-ninja -C build install 
+ninja -C build install
 cd -
 
 dirs=("wf-shell" "wf-copy-capture" "pixdecor" "touchswitch" "materia-trigg-custom" "orientprompt" "wf-session-systemd")
@@ -51,7 +53,7 @@ for dir in "${dirs[@]}"; do
     fi
     meson setup build --prefix=/usr --buildtype=release -Db_lto=true -Db_pie=true
     ninja -C build
-    ninja -C build install 
+    ninja -C build install
     cd -
 done
 

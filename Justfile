@@ -93,13 +93,14 @@ sudoif command *args:
 #
 
 # Build the image using the specified parameters
-build $target_image=image_name $tag=default_tag:
+build $target_image=image_name $tag=default_tag base_image="ghcr.io/ublue-os/base-main:latest":
     #!/usr/bin/env bash
 
     set -euox pipefail
 
     BUILD_ARGS=()
     LABELS=()
+    BUILD_ARGS+=("--build-arg" "BASE_IMAGE={{ base_image }}")
     if [[ -z "$(git status -s)" ]]; then
         GIT_SHA=$(git rev-parse --short HEAD)
         LABELS+=("--label" "io.artifacthub.package.readme-url=https://raw.githubusercontent.com/{{ repo_organization }}/{{ image_name }}/${GIT_SHA}/README.md")

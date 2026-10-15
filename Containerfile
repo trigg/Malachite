@@ -1,9 +1,11 @@
+ARG BASE_IMAGE
+
 FROM scratch AS ctx
-COPY build_files /
-COPY system_files /system_files
+COPY build_files /build_files/
+COPY system_files /system_files/
 
 # Base Image
-FROM ghcr.io/ublue-os/base-main:latest
+FROM ${BASE_IMAGE}
 
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \

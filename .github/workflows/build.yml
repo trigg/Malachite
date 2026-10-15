@@ -5,16 +5,16 @@ on:
     branches:
       - main
   schedule:
-    - cron: '05 10 * * *'  # 10:05am UTC everyday
+    - cron: "05 10 * * *"
   push:
     branches:
       - main
     paths-ignore:
-      - '**/README.md'
+      - "**/README.md"
   workflow_dispatch:
 
 env:
-  IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"  # do not edit
+  IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}" # do not edit
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}-${{ inputs.brand_name}}-${{ inputs.stream_name }}
@@ -29,6 +29,15 @@ jobs:
       contents: read
       packages: write
       id-token: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - variant: malachite
+            base_image: ghcr.io/ublue-os/base-main:latest
+          - variant: malachite-bazzite
+            base_image: ghcr.io/ublue-os/bazzite:stable
 
     steps:
       # These stage versions are pinned by https://github.com/renovatebot/renovate
@@ -49,7 +58,7 @@ jobs:
       - name: Image Name
         id: image-name
         run: |
-          IMAGE_NAME=$(just image_name)
+          IMAGE_NAME=${{ matrix.variant }}
 
           echo "IMAGE_NAME=${IMAGE_NAME}" >> $GITHUB_ENV
 
@@ -72,7 +81,7 @@ jobs:
         run: |
           sudo -E $(command -v just) build \
             ${IMAGE_NAME} \
-            ${DEFAULT_TAG}
+            ${DEFAULT_TAG} ${{ matrix.base_image }}
 
       # This is optional, this provides smaller delta updates
       - name: Rechunk with rpm-ostree
@@ -147,7 +156,7 @@ jobs:
         if: github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
         # https://github.com/containers/container-libs/issues/388
         with:
-          cosign-release: 'v2.6.3'
+          cosign-release: "v2.6.3"
 
       - name: Sign container image
         id: sign-image
@@ -158,4 +167,3 @@ jobs:
           DIGEST: ${{ steps.push-image.outputs.digest }}
         run: |
           cosign sign -y --key env://COSIGN_PRIVATE_KEY ${IMAGE_REGISTRY}/${IMAGE_NAME}@${DIGEST}
-
