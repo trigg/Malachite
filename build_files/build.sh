@@ -39,6 +39,7 @@ meson setup build \
   -Db_lto=true \
   -Db_pie=true \
   -Dtests=disabled \
+  -Dbuildtype=debugoptimized -Db_sanitize=address \
   -Dwf-config:tests=disabled
 
 ninja -C build
@@ -52,7 +53,7 @@ for dir in "${dirs[@]}"; do
     if [ "$dir" = "materia-trigg-custom" ]; then
       HOME=/tmp npm install sass
     fi
-    meson setup build --prefix=/usr --buildtype=release -Db_lto=true -Db_pie=true
+    meson setup build --prefix=/usr -Dbuildtype=debugoptimized -Db_sanitize=address -Db_lto=true -Db_pie=true
     ninja -C build
     ninja -C build install
     cd -
