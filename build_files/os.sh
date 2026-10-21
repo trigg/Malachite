@@ -2,6 +2,8 @@
 
 set -ouex pipefail
 
+dnf5 copr enable -y ublue-os/bazzite
+
 dnf5 install -y \
   sddm \
   papirus-icon-theme \
@@ -53,11 +55,10 @@ dnf5 install -y \
   xdg-desktop-portal \
   xdg-desktop-portal-wlr \
   xdg-desktop-portal-gtk \
-  wayland-logout
+  wayland-logout \
+  steam
 
 dnf5 clean all
 systemctl enable sddm
 
-if [ -f /usr/share/applications/mate-user-admin.desktop ]; then
-    sed -i 's/^OnlyShowIn=\(.*\)/OnlyShowIn=\1Wayfire;wayfire;/' /usr/share/applications/mate-user-admin.desktop
-fi
+sed -i 's/^OnlyShowIn=\(.*\)/OnlyShowIn=\1Wayfire;wayfire;/' /usr/share/applications/mate-user-admin.desktop

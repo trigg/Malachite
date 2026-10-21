@@ -1,5 +1,3 @@
-ARG BASE_IMAGE
-
 FROM fedora:44 as builder
 
 # Bind mount build scripts, download dependencies, compile, and install to /usr
@@ -10,8 +8,7 @@ RUN --mount=type=bind,source=build_files/build.sh,target=/tmp/build.sh \
     /tmp/build.sh
 
 
-# Base Image
-FROM ${BASE_IMAGE}
+FROM ghcr.io/ublue-os/base-main:latest
 
 COPY system_files/ /
 

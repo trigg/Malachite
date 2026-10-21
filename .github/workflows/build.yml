@@ -30,15 +30,6 @@ jobs:
       packages: write
       id-token: write
 
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - variant: malachite
-            base_image: ghcr.io/ublue-os/base-main:latest
-          - variant: malachite-bazzite
-            base_image: ghcr.io/ublue-os/bazzite-base:stable
-
     steps:
       # These stage versions are pinned by https://github.com/renovatebot/renovate
       - name: Checkout
@@ -58,7 +49,7 @@ jobs:
       - name: Image Name
         id: image-name
         run: |
-          IMAGE_NAME=${{ matrix.variant }}
+          IMAGE_NAME=$(just image_name)
 
           echo "IMAGE_NAME=${IMAGE_NAME}" >> $GITHUB_ENV
 
@@ -81,7 +72,7 @@ jobs:
         run: |
           sudo -E $(command -v just) build \
             ${IMAGE_NAME} \
-            ${DEFAULT_TAG} ${{ matrix.base_image }}
+            ${DEFAULT_TAG}
 
       # This is optional, this provides smaller delta updates
       - name: Rechunk with rpm-ostree
