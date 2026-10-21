@@ -23,7 +23,7 @@ RUN --mount=type=cache,dst=/var/cache \
       xorg-x11-xinit yyjson dbus-tools blueman blueman-nemo qt6-qtvirtualkeyboard  \
       sddm-wayland-generic sddm-themes xdg-desktop-portal \
       xdg-desktop-portal-wlr xdg-desktop-portal-gtk wayland-logout \
-      tuned tuned-ppd \
+      tuned tuned-ppd brightnessctl \
       && dnf5 clean all
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
