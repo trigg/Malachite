@@ -14,7 +14,8 @@ dnf5 install -y \
   NetworkManager-libnm-devel libjpeg-turbo-devel libpng-devel pipewire-devel alsa-lib-devel \
   pulseaudio-libs-devel systemd-devel wlroots-devel enchant2-devel \
   pam-devel gobject-introspection-devel vala yyjson-devel openssl-devel \
-  gtk4-layer-shell-devel librsvg2-devel libnotify-devel flatpak-devel
+  gtk4-layer-shell-devel librsvg2-devel libnotify-devel flatpak-devel \
+  wireplumber-devel
 
 
 mkdir -p /tmp/wayfire-build
@@ -65,6 +66,9 @@ dnf5 remove -y \
 
 systemctl enable sddm
 systemctl enable iio-sensor-proxy
+systemctl enable tuned
+systemctl enable NetworkManager
+systemctl enable ModemManager
 
 if [ -f /usr/share/applications/mate-user-admin.desktop ]; then
     sed -i 's/^OnlyShowIn=\(.*\)/OnlyShowIn=\1Wayfire;wayfire;/' /usr/share/applications/mate-user-admin.desktop
