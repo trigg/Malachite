@@ -3,7 +3,6 @@
 set -ouex pipefail
 
 dnf5 copr enable -y ublue-os/bazzite
-dnf5 copr enable -y group_OpenGamingCollective/kernel-packages
 
 dnf5 install -y \
   sddm \
@@ -58,15 +57,6 @@ dnf5 install -y \
   xdg-desktop-portal-gtk \
   wayland-logout \
   steam
-
-dnf swap -y kernel kernel-ogc
-dnf swap -y kernel-core kernel-ogc-core
-dnf swap -y kernel-modules kernel-ogc-modules
-dnf swap -y kernel-modules-core kernel-ogc-modules-core
-dnf swap -y kernel-modules-extra kernel-ogc-modules-extra
-
-KERNEL_VERSION=$(rpm -q kernel-ogc --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}\n' | head -n 1)
-dracut --fileplacement --kver "${KERNEL_VERSION}" --force
 
 dnf5 clean all
 systemctl enable sddm
