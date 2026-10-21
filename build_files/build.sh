@@ -33,7 +33,6 @@ git clone https://github.com/trigg/wf-session-systemd.git
 cd "wayfire"
 meson setup build \
   --prefix=/usr \
-  --buildtype=release \
   -Duse_system_wlroots=enabled \
   -Duse_system_wfconfig=disabled \
   -Db_lto=true \
