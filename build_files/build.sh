@@ -64,6 +64,7 @@ dnf5 remove -y \
   *-devel
 
 systemctl enable sddm
+systenctl enable iio-sensor-proxy
 
 if [ -f /usr/share/applications/mate-user-admin.desktop ]; then
     sed -i 's/^OnlyShowIn=\(.*\)/OnlyShowIn=\1Wayfire;wayfire;/' /usr/share/applications/mate-user-admin.desktop

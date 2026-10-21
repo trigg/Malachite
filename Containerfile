@@ -14,7 +14,7 @@ RUN --mount=type=cache,dst=/var/cache \
       qt5-qtstyleplugins qt6ct flatpak-libs \
       nemo nemo-fileroller nemo-preview nemo-image-converter \
       gvfs-fuse gvfs-smb gvfs-gphoto2 xfce4-terminal \
-      loupe clapper gnome-text-editor \
+      loupe clapper gnome-text-editor iio-sensor-proxy \
       galculator xarchiver xfce4-taskmanager pavucontrol wdisplays \
       chromium evince file-roller grim slurp NetworkManager-tui \
       enchant2 hunspell hunspell-en mate-user-admin \
