@@ -5,7 +5,7 @@ set -ouex pipefail
 cp -avf "/ctx/system_files"/. /
 
 dnf5 install -y \
-  meson ninja-build gcc-c++ git nodejs npm cmake \
+  meson ninja-build gcc-c++ git nodejs npm cmake libasan \
   python3-pip python3-setuptools \
   libdrm-devel mesa-libgbm-devel mesa-libEGL-devel mesa-libGLES-devel \
   libglvnd-devel pixman-devel libdecor-devel wayland-devel wayland-protocols-devel \
