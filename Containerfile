@@ -16,7 +16,7 @@ RUN --mount=type=cache,dst=/var/cache \
       gvfs-fuse gvfs-smb gvfs-gphoto2 xfce4-terminal \
       loupe clapper gnome-text-editor iio-sensor-proxy \
       galculator xarchiver xfce4-taskmanager pavucontrol wdisplays \
-      chromium evince file-roller grim slurp NetworkManager-tui \
+      evince file-roller grim slurp NetworkManager-tui \
       enchant2 hunspell hunspell-en mate-user-admin \
       wlroots gtk4-layer-shell librsvg2 google-noto-emoji-color-fonts\
       google-noto-sans-cjk-vf-fonts mesa-dri-drivers  xorg-x11-server-Xorg \
