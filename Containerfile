@@ -21,6 +21,7 @@ COPY --from=builder /usr/share/wayland-sessions/ /usr/share/wayland-sessions/
 COPY --from=builder /usr/share/wf-shell/ /usr/share/wf-shell/
 COPY --from=builder /usr/share/wf-session/ /usr/share/wf-session/
 COPY --from=builder /usr/share/themes/ /usr/share/themes/
+COPY --from=builder /usr/lib/systemd/user/wf-session* /usr/lib/systemd/user/
 
 RUN --mount=type=bind,source=build_files/os.sh,target=/tmp/os.sh \
     --mount=type=cache,dst=/var/cache \
