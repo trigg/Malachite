@@ -16,7 +16,6 @@ COPY --from=builder /usr/bin/wayfire* /usr/bin/
 COPY --from=builder /usr/bin/wf-* /usr/bin/
 COPY --from=builder /usr/lib64/libwf-config* /usr/lib64/
 COPY --from=builder /usr/lib64/wayfire/ /usr/lib64/wayfire/
-COPY --from=builder /usr/lib/wayfire/ /usr/lib/wayfire/
 COPY --from=builder /usr/share/wayfire/ /usr/share/wayfire/
 COPY --from=builder /usr/share/wayland-sessions/ /usr/share/wayland-sessions/
 COPY --from=builder /usr/share/wf-shell/ /usr/share/wf-shell/
