@@ -1,4 +1,4 @@
-#!/bin/bash
+s#!/bin/bash
 
 set -ouex pipefail
 
@@ -15,7 +15,7 @@ dnf5 install -y \
   pulseaudio-libs-devel systemd-devel wlroots-devel enchant2-devel \
   pam-devel gobject-introspection-devel vala yyjson-devel openssl-devel \
   gtk4-layer-shell-devel librsvg2-devel libnotify-devel flatpak-devel \
-  wireplumber-devel
+  wireplumber-devel kanshi cargo rust libadwaita-devel
 
 
 mkdir -p /tmp/wayfire-build
@@ -29,6 +29,7 @@ git clone https://github.com/trigg/touchswitch.git
 git clone https://github.com/trigg/orientprompt.git
 git clone https://github.com/trigg/materia-trigg-custom.git
 git clone https://github.com/trigg/wf-session-systemd.git
+git clone https://github.com/grigio/kanshi-gtk4.git
 
 cd "wayfire"
 meson setup build \
@@ -58,10 +59,17 @@ for dir in "${dirs[@]}"; do
     cd -
 done
 
+cd kanshi-gtk4
+cargo build --release
+install -Dm755 target/release/kanshi-gtk4 /usr/bin/kanshi-gtk4
+install -Dm644 data/io.github.kanshi_gtk4.desktop /usr/share/applications/
+cp -r data/icons/hicolor/scalable /usr/share/icons/hicolor/ || true
+cd -
+
 dnf5 remove -y \
   meson ninja-build gcc-c++ git nodejs npm cmake \
   python3-pip python3-setuptools \
-  vala \
+  vala cargo rust \
   *-devel
 
 systemctl enable sddm
