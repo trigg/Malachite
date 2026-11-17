@@ -60,7 +60,7 @@ for dir in "${dirs[@]}"; do
 done
 
 cd kanshi-gtk4
-cargo build --release
+CARGO_HOME=/tmp/.cargo cargo build --release
 install -Dm755 target/release/kanshi-gtk4 /usr/bin/kanshi-gtk4
 install -Dm644 data/io.github.kanshi_gtk4.desktop /usr/share/applications/
 cp -r data/icons/hicolor/scalable /usr/share/icons/hicolor/ || true
