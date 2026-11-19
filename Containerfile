@@ -9,21 +9,21 @@ RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
     dnf5 install -y \
-      sddm papirus-icon-theme swayidle mate-polkit mako \
+      papirus-icon-theme swayidle mate-polkit mako \
       atkinson-hyperlegible-next-fonts atkinson-hyperlegible-mono-fonts \
-      qt5-qtstyleplugins qt6ct flatpak-libs \
+      flatpak-libs \
       nemo nemo-fileroller nemo-preview nemo-image-converter \
       gvfs-fuse gvfs-smb gvfs-gphoto2 xfce4-terminal \
-      loupe clapper gnome-text-editor iio-sensor-proxy \
-      galculator xarchiver xfce4-taskmanager pavucontrol wdisplays \
-      evince file-roller grim slurp NetworkManager-tui \
+      iio-sensor-proxy xfce4-taskmanager pavucontrol \
+      evince grim slurp NetworkManager-tui \
       enchant2 hunspell hunspell-en mate-user-admin \
       wlroots gtk4-layer-shell librsvg2 google-noto-emoji-color-fonts\
       google-noto-sans-cjk-vf-fonts mesa-dri-drivers  xorg-x11-server-Xorg \
-      xorg-x11-xinit yyjson dbus-tools blueman blueman-nemo qt6-qtvirtualkeyboard  \
-      sddm-wayland-generic sddm-themes xdg-desktop-portal \
+      xorg-x11-xinit yyjson dbus-tools blueman blueman-nemo \
+      xdg-desktop-portal \
       xdg-desktop-portal-wlr xdg-desktop-portal-gtk wayland-logout \
-      tuned tuned-ppd brightnessctl \
+      tuned tuned-ppd brightnessctl kanshi \
+      greetd gtkgreet \
       && dnf5 clean all
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \

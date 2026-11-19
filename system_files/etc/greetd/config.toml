@@ -1,0 +1,6 @@
+[terminal]
+vt = 1
+
+[default_session]
+command = "GTK_THEME=Trigg-dark-compact wayfire -c /etc/greetd/wayfire.ini"
+user = "greeter"
