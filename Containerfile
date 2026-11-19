@@ -23,6 +23,7 @@ RUN --mount=type=cache,dst=/var/cache \
       xdg-desktop-portal \
       xdg-desktop-portal-wlr xdg-desktop-portal-gtk wayland-logout \
       tuned tuned-ppd brightnessctl kanshi \
+      greetd greetd-selinux \
       && dnf5 clean all
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
