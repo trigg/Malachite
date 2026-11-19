@@ -1,4 +1,4 @@
-s#!/bin/bash
+#!/bin/bash
 
 set -ouex pipefail
 
@@ -30,6 +30,7 @@ git clone https://github.com/trigg/orientprompt.git
 git clone https://github.com/trigg/materia-trigg-custom.git
 git clone https://github.com/trigg/wf-session-systemd.git
 git clone https://github.com/grigio/kanshi-gtk4.git
+git clone https://github.com/rharish101/ReGreet.git regreet
 
 cd "wayfire"
 meson setup build \
@@ -66,6 +67,11 @@ install -Dm644 data/io.github.kanshi_gtk4.desktop /usr/share/applications/
 cp -r data/icons/hicolor/scalable /usr/share/icons/hicolor/ || true
 cd -
 
+cd regreet
+CARGO_HOME=/tmp/.cargo cargo build --release --locked
+install -Dm755 target/release/regreet /usr/bin/regreet
+cd -
+
 dnf5 remove -y \
   meson ninja-build gcc-c++ git nodejs npm cmake \
   python3-pip python3-setuptools \
@@ -85,3 +91,4 @@ fi
 
 dnf5 clean all
 rm -rf /tmp/wayfire-build
+rm -rf /tmp/.cargo /tmp/.npm
