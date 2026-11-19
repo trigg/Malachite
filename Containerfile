@@ -5,6 +5,11 @@ COPY system_files /system_files
 # Base Image
 FROM ghcr.io/ublue-os/base-main:latest
 
+RUN dnf5 copr enable -y mystical-devil/ReGreet && \
+    dnf5 install -y greetd greetd-selinux regreet && \
+    dnf5 copr disable -y mystical-devil/ReGreet && \
+    dnf5 clean all
+
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
@@ -23,7 +28,6 @@ RUN --mount=type=cache,dst=/var/cache \
       xdg-desktop-portal \
       xdg-desktop-portal-wlr xdg-desktop-portal-gtk wayland-logout \
       tuned tuned-ppd brightnessctl kanshi \
-      greetd regreet \
       && dnf5 clean all
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
